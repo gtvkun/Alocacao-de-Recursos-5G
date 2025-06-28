@@ -115,4 +115,4 @@ Prop. Fair        | 87.30%     | 85.60%
 
 ## 👨‍💻 Autor
 
-Gustavo — Engenheiro de Telecom e Mestrando em Engenharia Elétrica (ênfase em Redes 5G)
+Gustavo Coelho Domingos — Engenheiro em Eletônica e de Telecomunicações 
