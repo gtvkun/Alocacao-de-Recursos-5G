@@ -36,9 +36,9 @@ Uma aplicação interativa para simular e comparar estratégias de alocação de
 
 ## 🖼️ Pré-visualização
 
-*Insira abaixo um print da aplicação em execução:*
 
-![screenshot](coloque-seu-print-aqui.png)
+![image](https://github.com/user-attachments/assets/8f13e690-915c-4fc6-84a1-acb61d41ccf1)
+
 
 ---
 
