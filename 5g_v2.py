@@ -71,7 +71,6 @@ def classify_and_prepare_data():
     # Remove qualquer linha que contenha valores NaN nas colunas críticas.
     df = df.dropna(subset=["DL_bitrate", "UL_bitrate", ping_col, "CQI"])
     
-    # Passo CRÍTICO: Re-indexa o DataFrame. Garante que os índices são sequenciais (0, 1, 2...),
     # evitando erros de 'IndexError' em loops posteriores após a remoção de linhas.
     df = df.reset_index(drop=True)
 
