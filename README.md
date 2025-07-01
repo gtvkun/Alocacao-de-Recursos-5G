@@ -1,7 +1,7 @@
 
 # 🎛️ Simulador de Alocação de Recursos 5G com Interface Gráfica
 
-![Versão](https://img.shields.io/badge/versão-1.0-blue)
+![Versão](https://img.shields.io/badge/versão-2.0-blue)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![CustomTkinter](https://img.shields.io/badge/GUI-CustomTkinter-darkgreen)
 ![Algoritmo](https://img.shields.io/badge/Algoritmo-Genético-purple)
