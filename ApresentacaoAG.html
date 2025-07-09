@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: Algoritmo Genético para Redes 5G</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        .slide {
+            scroll-snap-align: start;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            position: relative;
+        }
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 1rem;
+            color: #9ca3af;
+        }
+        .code-snippet {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .highlight {
+            color: #63b3ed;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Slide 1: Título -->
+    <div id="slide1" class="slide bg-gray-900">
+        <div class="slide-content text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-blue-400 mb-4">Otimização de Alocação de Recursos 5G</h1>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-300">Uma Análise do Algoritmo Genético Implementado</h2>
+            <p class="mt-8 text-xl text-gray-400">Gustavo Coelho Domingos</p>
+        </div>
+        <div class="slide-number">1 / 12</div>
+    </div>
+
+    <!-- Slide 2: Introdução -->
+    <div id="slide2" class="slide bg-gray-800">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">O Desafio: Alocação de Recursos em Redes 5G</h2>
+            <p class="text-xl text-gray-300 leading-relaxed mb-4">
+                Redes 5G precisam atender a uma enorme diversidade de aplicações, desde streaming de vídeo (alta vazão) até serviços de emergência (baixa latência). Alocar os recursos da rede (RBs - Blocos de Recursos) de forma eficiente é um problema complexo.
+            </p>
+            <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold text-white mb-3">O Objetivo Principal:</h3>
+                <p class="text-lg text-gray-300">
+                    Encontrar um equilíbrio ideal entre dois objetivos concorrentes:
+                </p>
+                <ul class="list-disc list-inside mt-4 text-lg space-y-2">
+                    <li><span class="font-bold text-green-400">Máxima Satisfação do Usuário:</span> Atender às necessidades de QoS (Qualidade de Serviço) de cada aplicação.</li>
+                    <li><span class="font-bold text-yellow-400">Justiça (Fairness):</span> Garantir que nenhum usuário seja deixado de lado (evitar "starvation"), distribuindo os recursos de forma equitativa.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="slide-number">2 / 12</div>
+    </div>
+
+    <!-- Slide 3: Processamento dos Dados -->
+    <div id="slide3" class="slide bg-gray-900">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">Da Origem à Simulação: O Fluxo dos Dados</h2>
+            <p class="text-xl text-gray-300 mb-6">A simulação utiliza dados do mundo real para garantir resultados relevantes.</p>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-2">1. Dataset Bruto</h3>
+                    <p class="text-gray-400"><code>Quality of Service 5G.csv</code> contém medições de múltiplas tecnologias de rede (4G, 5G, etc.).</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-2">2. Filtragem 5G</h3>
+                    <p class="text-gray-400">O script <code>Classificador.py</code> isola apenas as entradas de rede 5G, gerando o <code>5g_data.csv</code>.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-2">3. Classificação</h3>
+                    <p class="text-gray-400">A função <code>classify()</code> em <code>5g_v2.py</code> analisa DL/UL Bitrate e Ping para categorizar a aplicação de cada usuário (ex: Video_Streaming, VoIP_Call).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">3 / 12</div>
+    </div>
+
+    <!-- Slide 4: O que é um Algoritmo Genético? -->
+    <div id="slide4" class="slide bg-gray-800">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">O Que é um Algoritmo Genético (AG)?</h2>
+            <p class="text-xl text-gray-300 mb-6">É uma técnica de otimização inspirada na <span class="text-green-400 font-semibold">evolução biológica</span> de Charles Darwin. O AG "evolui" uma população de soluções candidatas em direção a uma solução ótima.</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-gray-700 p-4 rounded-lg text-center"><strong>População:</strong> Conjunto de possíveis soluções.</div>
+                <div class="bg-gray-700 p-4 rounded-lg text-center"><strong>Fitness:</strong> Nota que avalia quão boa é uma solução.</div>
+                <div class="bg-gray-700 p-4 rounded-lg text-center"><strong>Seleção:</strong> Os mais "aptos" são escolhidos para reproduzir.</div>
+                <div class="bg-gray-700 p-4 rounded-lg text-center"><strong>Cruzamento (Crossover):</strong> Pais combinam "genes" para criar filhos.</div>
+                <div class="bg-gray-700 p-4 rounded-lg text-center"><strong>Mutação:</strong> Pequenas alterações aleatórias para criar diversidade.</div>
+                <div class="bg-gray-700 p-4 rounded-lg text-center"><strong>Elitismo:</strong> Os melhores indivíduos sobrevivem intactos.</div>
+            </div>
+        </div>
+        <div class="slide-number">4 / 12</div>
+    </div>
+
+    <!-- Slide 5: Indivíduo e População -->
+    <div id="slide5" class="slide bg-gray-900">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">AG: Representação do Problema</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-3">O Indivíduo (ou Cromossomo)</h3>
+                    <p class="text-lg text-gray-300 mb-4">Cada indivíduo é uma <span class="text-green-400">solução completa</span> para o problema. Neste caso, é uma lista que representa a alocação de RBs para todos os usuários.</p>
+                    <p class="code-snippet">[ <span class="text-yellow-400">12</span>, <span class="text-yellow-400">8</span>, <span class="text-yellow-400">0</span>, <span class="text-yellow-400">5</span>, ..., <span class="text-yellow-400">15</span> ]</p>
+                    <p class="text-gray-400 mt-2 text-sm">Onde o índice é o ID do usuário e o valor é a quantidade de RBs alocados.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-3">A População</h3>
+                    <p class="text-lg text-gray-300 mb-4">A população é um conjunto desses indivíduos. Cada um representa uma estratégia de alocação diferente. O AG trabalha com múltiplas soluções ao mesmo tempo.</p>
+                    <div class="code-snippet">
+                        Indivíduo 1: [ 12, 8, 0, ... ]<br>
+                        Indivíduo 2: [ 5, 10, 4, ... ]<br>
+                        Indivíduo 3: [ 0, 7, 11, ... ]<br>
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">5 / 12</div>
+    </div>
+
+    <!-- Slide 6: Função de Fitness -->
+    <div id="slide6" class="slide bg-gray-800">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">O Coração do AG: A Função de Aptidão (Fitness)</h2>
+            <p class="text-xl text-gray-300 mb-4">A função <code>fit()</code> em <code>5g_v2.py</code> determina a "qualidade" de cada alocação. É uma função multi-objetivo ponderada:</p>
+            <div class="code-snippet text-center text-lg mb-6">
+                Fitness = (<span class="highlight">0.7</span> * Satisfação Média) + (<span class="highlight">0.3</span> * Índice de Justiça de Jain)
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold text-green-400">Satisfação</h3>
+                    <p class="text-gray-300">Mede o quão bem a alocação atende aos requisitos de cada aplicação (eMBB vs URLLC). Uma função "suave" que guia a evolução mesmo para soluções subótimas.</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold text-yellow-400">Justiça (Fairness)</h3>
+                    <p class="text-gray-300">Usa o <span class="font-bold">Índice de Justiça de Jain</span>, uma métrica padrão para medir a equidade. Um valor de 1 indica justiça perfeita.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">6 / 12</div>
+    </div>
+
+    <!-- Slide 7: Operador de Cruzamento -->
+    <div id="slide7" class="slide bg-gray-900">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">Operadores Genéticos: Cruzamento (Crossover)</h2>
+            <p class="text-xl text-gray-300 mb-4">A função <code>cross()</code> combina dois "pais" para gerar um novo "filho", explorando novas soluções.</p>
+            <div class="bg-gray-800 p-6 rounded-lg">
+                <p class="mb-4">Usa-se o cruzamento de ponto único. O mais importante é o <span class="text-yellow-400 font-semibold">mecanismo de reparação</span>.</p>
+                <div class="code-snippet">
+                    Pai 1: [ <span class="text-green-400">10, 5, 8</span> | 12, 3, 7 ]<br>
+                    Pai 2: [ <span class="text-blue-400">4, 9, 11</span> | 6, 2, 1 ]<br>
+                    <br>
+                    Filho: [ <span class="text-green-400">10, 5, 8</span>, <span class="text-white">6, 2, 1</span> ]<br>
+                    <br>
+                    <span class="text-red-400">// Se sum(Filho) > TOTAL_RBS...</span><br>
+                    <span class="text-red-400">// ...o excesso é removido de usuários aleatórios.</span><br>
+                    <span class="text-red-400">// Isso garante que todas as soluções sejam sempre válidas!</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">7 / 12</div>
+    </div>
+
+    <!-- Slide 8: Operador de Mutação e Elitismo -->
+    <div id="slide8" class="slide bg-gray-800">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">Operadores Genéticos: Mutação e Elitismo</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-3">Mutação Híbrida</h3>
+                    <p class="text-lg text-gray-300 mb-4">A função <code>mutate()</code> introduz diversidade para evitar estagnação:</p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li><b>Tentativa Guiada:</b> Move recursos de usuários <span class="text-green-400">satisfeitos</span> para usuários <span class="text-yellow-400">necessitados</span>. (Refinamento)</li>
+                        <li><b>Fallback Aleatório:</b> Se a guiada falhar, troca recursos entre dois usuários aleatórios. (Exploração)</li>
+                    </ol>
+                </div>
+                <div class="bg-gray-700 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-blue-400 mb-3">Elitismo</h3>
+                    <p class="text-lg text-gray-300">Garante que as melhores soluções encontradas não sejam perdidas. Os <span class="text-green-400">melhores indivíduos</span> (ex: 2 melhores) de uma geração são copiados diretamente para a próxima, preservando o progresso.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">8 / 12</div>
+    </div>
+    
+    <!-- Slide 9: Algoritmos de Referência -->
+    <div id="slide9" class="slide bg-gray-900">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">Com Quem Estamos Comparando? (Baselines)</h2>
+            <p class="text-xl text-gray-300 mb-6">Para avaliar o AG, seu desempenho é comparado com algoritmos clássicos:</p>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold text-green-400">Round Robin (RR)</h3>
+                    <p class="text-gray-400 mt-2">Divide os recursos igualmente. É <span class="font-bold">muito justo</span>, mas ineficiente, pois ignora a qualidade do sinal e as necessidades dos usuários.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold text-yellow-400">Best CQI (Greedy)</h3>
+                    <p class="text-gray-400 mt-2">Aloca tudo para os usuários com melhor qualidade de sinal (CQI). Maximiza a vazão, mas é <span class="font-bold">extremamente injusto</span>.</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-lg">
+                    <h3 class="text-xl font-semibold text-blue-400">Proportional Fair (PF)</h3>
+                    <p class="text-gray-400 mt-2">Busca um <span class="font-bold">equilíbrio</span> entre a justiça do RR e a eficiência do Best CQI. É um competidor forte e amplamente utilizado.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">9 / 12</div>
+    </div>
+
+    <!-- Slide 10: Simulação e Resultados -->
+    <div id="slide10" class="slide bg-gray-800">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">Resultados da Simulação</h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-center">
+                    <img src="https://github.com/user-attachments/assets/8f13e690-915c-4fc6-84a1-acb61d41ccf1" alt="Interface Gráfica do Simulador 5G" class="rounded-lg shadow-lg mx-auto">
+                    <p class="text-gray-400 mt-2">Interface gráfica do simulador <code>5g_v2.py</code>.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold mb-3">Análise Comparativa</h3>
+                    <p class="text-lg text-gray-300 mb-4">O AG consistentemente supera os baselines, alcançando alta satisfação e alta justiça simultaneamente.</p>
+                    <h3 class="text-2xl font-semibold mb-3 mt-6">Evolução da Aptidão</h3>
+                    <p class="text-lg text-gray-300">O gráfico de evolução mostra que a aptidão (qualidade da solução) da população melhora a cada geração, provando que o algoritmo está "aprendendo" e convergindo para uma boa solução.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- Slide 11: Conclusão -->
+    <div id="slide11" class="slide bg-gray-900">
+        <div class="slide-content">
+            <h2 class="text-4xl font-bold text-blue-300 mb-6">Conclusão</h2>
+            <ul class="space-y-4 text-xl text-gray-300">
+                <li class="flex items-start">
+                    <span class="text-green-400 mr-3 mt-1">✔</span>
+                    <span>O <strong>Algoritmo Genético</strong> demonstrou ser uma abordagem <strong>superior</strong> para o problema complexo de alocação de recursos em redes 5G.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-400 mr-3 mt-1">✔</span>
+                    <span>A implementação de operadores sofisticados como a <strong>mutação híbrida</strong> e o <strong>cruzamento com reparação</strong> foi crucial para o sucesso do algoritmo.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-400 mr-3 mt-1">✔</span>
+                    <span>O AG alcança um <strong>excelente equilíbrio entre satisfação e justiça</strong>, superando os algoritmos clássicos que tendem a favorecer um objetivo em detrimento do outro.</span>
+                </li>
+                 <li class="flex items-start">
+                    <span class="text-green-400 mr-3 mt-1">✔</span>
+                    <span>Algoritmos bioinspirados são ferramentas <strong>poderosas e promissoras</strong> para resolver desafios emergentes na gestão de redes de próxima geração.</span>
+                </li>
+            </ul>
+        </div>
+        <div class="slide-number">11 / 12</div>
+    </div>
+
+    <!-- Slide 12: Perguntas -->
+    <div id="slide12" class="slide bg-gray-800">
+        <div class="slide-content text-center">
+            <h1 class="text-6xl font-bold text-blue-400">Perguntas?</h1>
+        </div>
+        <div class="slide-number">12 / 12</div>
+    </div>
+
+    <script>
+        // Smooth scroll for navigation (optional)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
